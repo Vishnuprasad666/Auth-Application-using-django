@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Login</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background: cyan;
+            min-height: 100vh;
+        }
+
+        .login-card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn {
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+                <div class="card login-card p-4">
+                    <div class="card-body">
+
+                        <h3 class="text-center mb-4 fw-semibold">Login</h3>
+
+                        {% if messages %}
+                        {% for i in messages %}
+                        {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success">
+                            {{ i }}
+                        </div>
+                        {% endif %}
+                        {% if i.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                        <div class="alert alert-warning">
+                            {{ i }}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+
+                            {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    {{ field.label }}
+                                </label>
+
+                                {{ field }}
+
+                                {% if field.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ field.errors }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Login
+                                </button>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <a href="{% url 'signup' %}" class="text-decoration-none">
+                                    New user? Create an account
+                                </a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
